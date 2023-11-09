@@ -1,0 +1,154 @@
+<html>
+    <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
+    
+    <style>
+     body {
+         background: #797ef6;
+     }
+     img {
+         display: none;
+         height: 50vh;
+     }
+     #zuchou {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+     }
+
+     #greeting {
+         text-align: center;
+         font-size: 60px;
+         margin-top: 40px;
+         font-family: 'Happy Monkey', serif;
+
+     }
+
+     #zuchou-says {
+         text-align: center;
+         font-size: 40px;
+         font-family: 'Happy Monkey', serif;
+         position: absolute;
+         bottom: 10px;
+         width: 200px;
+         left: 0;
+         right: 0;
+         margin-left: auto;
+         margin-right: auto;         
+     }
+     #right {
+         transform: scaleX(-1);
+     }
+     
+    </style>
+    </head>
+    <body>
+        <div id="greeting">
+            Happy Birthday Mama!!
+        </div>
+        <div id="zuchou">
+            <img id="straight" src="./straight.png" />
+            <img id="bottom-left" src="./bottom-left.png" />
+            <img id="bottom-right" src="./bottom-right.png" />
+            <img id="bottom" src="./bottom.png" />
+            <img id="top-right" src="./top-right.png" />
+            <img id="top-left" src="./top-left.png" />
+            <img id="left" src="./left.png" />
+            <img id="right" src="./left.png" />
+        </div>
+        <div id="zuchou-says">
+            I love you!
+        </div>
+
+    </body>
+
+    <script>
+     document.getElementById('straight').style.display = 'block'
+
+     const hideAll = () => {
+         const all = ['straight', 'bottom-left', 'bottom-right', 'bottom', 'top-right', 'top-left', 'right', 'left']
+         all.forEach(pic => {
+             document.getElementById(pic).style.display = 'none'
+         })
+     }
+     
+
+     const update = (event) => {
+         const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.offsetWidt
+         const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.offsetHeigh;
+         const leftBound = screenWidth * 0.3333333333333
+         const rightBound = screenWidth * 0.666666666666
+
+         const topBound = screenHeight * 0.3333333333333
+     const bottomBound = screenHeight * 0.666666666666
+
+     const x = event.clientX
+     const y = event.clientY
+
+
+     const left = x < leftBound
+     const right = x > rightBound
+     const middleX = !left && !right
+
+     const top = y < topBound
+     const bottom = y > bottomBound
+     const middleY = !top && !bottom
+     
+     console.log('x', x)
+
+     hideAll()         
+         if (right && middleY) {
+             document.getElementById('right').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'TREAT?'
+         }
+         else if (right && top) {
+             document.getElementById('top-right').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'PLEASE?'
+         }
+         else if (right && bottom) {
+             document.getElementById('bottom-right').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'GIMME?'
+         }
+         else if (left && middleY) {
+             document.getElementById('left').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'SNICK SNACK!'
+         }
+         else if (left && top) {
+             document.getElementById('top-left').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'JACKPOT!'
+         }
+         else if (left && bottom) {
+             document.getElementById('bottom-left').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'MORE!'
+         }
+         else if (middleX && bottom) {
+             document.getElementById('bottom').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'I DESERVE!'
+         }
+         else if (middleX && top) {
+             document.getElementById('top-left').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'HUNGRY!'
+         }
+         else {
+             document.getElementById('straight').style.display = 'block'
+             document.getElementById('zuchou-says').innerText = 'I love you!'
+         }
+         
+         console.log('top', top)
+         console.log('bottom', bottom)
+         console.log('middle', middleY)
+
+         console.log('right', right)
+         console.log('left', left)
+         console.log('middleX', middleX)
+         console.log('')
+     }
+     
+     addEventListener("pointermove", update);
+     addEventListener("pointerdown", update);
+
+    </script>
+</html>
